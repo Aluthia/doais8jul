@@ -49,8 +49,12 @@
   # 1. Install dependencies
   pip install -r requirements.txt
 
-  # 2. Set OpenAI API key (used as the evaluation judge LLM)
-  export OPENAI_API_KEY="your-openai-api-key"
+  # 2. Set Ollama credentials (used as the evaluation judge LLM,
+  # same backend the app itself calls)
+  export OLLAMA_BASE_URL="https://ollama.com"
+  export OLLAMA_API_KEY="your-ollama-api-key"
+  # Optional: override which model grades the evals (default gemma3:12b)
+  export OLLAMA_MODEL_JUDGE="gemma3:12b"
 
   # 3. Make sure the Spring Boot app is running on localhost:8080
 
@@ -68,4 +72,4 @@
   # Verbose output
   deepeval test run test_classify.py -v
 
-  The tests call each endpoint live on localhost:8080, then use OpenAI (as the judge LLM) to evaluate whether the responses are correct, relevant, properly structured, and free of hallucinations.
+  The tests call each endpoint live on localhost:8080, then use the project's Ollama backend (as the judge LLM) to evaluate whether the responses are correct, relevant, properly structured, and free of hallucinations.

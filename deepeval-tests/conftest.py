@@ -6,6 +6,19 @@ import pytest
 from deepeval.metrics import GEval
 from deepeval.test_case import LLMTestCaseParams
 
+from ollama_judge_model import OllamaJudgeModel
+
+
+# ---------------------------------------------------------------------------
+# Judge LLM
+#
+# Evaluation criteria are graded by the same Ollama backend the app itself
+# uses (see llm-multiroute/app/service/ai_service.py), rather than OpenAI.
+# Configure via OLLAMA_BASE_URL / OLLAMA_API_KEY / OLLAMA_MODEL_JUDGE.
+# ---------------------------------------------------------------------------
+
+judge_model = OllamaJudgeModel()
+
 
 # ---------------------------------------------------------------------------
 # Reusable GEval metric factories
@@ -18,13 +31,14 @@ def json_schema_metric(schema_description: str):
         criteria=(
             "Evaluate whether the actual output is valid JSON that conforms to "
             "the required schema. Only check structure, key names, and data "
-            "types — do NOT penalize for specific values. "
+            "types -- do NOT penalize for specific values. "
             + schema_description
         ),
         evaluation_params=[
             LLMTestCaseParams.ACTUAL_OUTPUT,
         ],
         threshold=0.5,
+        model=judge_model,
     )
 
 
@@ -42,6 +56,7 @@ def output_correctness_metric():
             LLMTestCaseParams.ACTUAL_OUTPUT,
         ],
         threshold=0.5,
+        model=judge_model,
     )
 
 
@@ -64,4 +79,5 @@ def answer_relevancy_metric():
             LLMTestCaseParams.ACTUAL_OUTPUT,
         ],
         threshold=0.5,
+        model=judge_model,
     )

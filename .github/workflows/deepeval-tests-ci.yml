@@ -18,7 +18,7 @@ on:
 env:
   OLLAMA_API_KEY: ${{ secrets.OLLAMA_API_KEY }}
   OLLAMA_BASE_URL: ${{ secrets.OLLAMA_BASE_URL }}
-  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  OLLAMA_MODEL_JUDGE: ${{ vars.OLLAMA_MODEL_JUDGE || 'gemma3:12b' }}
 
 jobs:
   deepeval:
