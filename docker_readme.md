@@ -36,7 +36,7 @@
     - Semver tag if you use git tags (e.g., v1.0.0)
     - latest only on the default branch
   - Conditional push — Builds on all triggers but only pushes to Docker
-   Hub on push events (not on PRs, which get build-only validation)
+   Hub on push events (not on PRs, which get build-only validation) 
   Image names on Docker Hub
   ┌─────────────────────┬────────────────────────────────┐             
   │      Workflow       │             Image              │             
@@ -45,7 +45,7 @@
   ├─────────────────────┼────────────────────────────────┤             
   │ llm-frontend-python │ darryl1975/llm-frontend-python │             
   └─────────────────────┴────────────────────────────────┘             
-  Required secret
+  Required secrets
   Add this in your repo settings (Settings > Secrets and variables > Actions):
   Secret: DOCKERHUB_TOKEN
   Purpose: Docker Hub access token for darryl1975 (generate at https://hub.docker.com/settings/security)
